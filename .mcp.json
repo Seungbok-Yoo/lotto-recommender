@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lotto": {
+      "command": "python",
+      "args": ["mcp_server/lotto_mcp.py"]
+    }
+  }
+}
