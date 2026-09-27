@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>lotto tests</title>
+<style>
+  body { font: 14px/1.5 Consolas, monospace; background: #070B09; color: #E4F2EA; padding: 16px; }
+  .pass { color: #39FF88; } .fail { color: #FF6B6B; }
+</style>
+<h1 id="summary">running…</h1>
+<ul id="results"></ul>
+
+<!-- 테스트 대상: 빌드 결과물이 아닌 src 원본을 직접 불러온다 -->
+<script src="../src/lib/lotto.js"></script>
+<script src="../src/lib/stats.js"></script>
+<script>
+  const cases = [];
+  function test(name, fn) { cases.push({ name, fn }); }
+  function ok(cond, msg = "") { if (!cond) throw new Error("ok 실패 " + msg); }
+  function eq(a, b) {
+    const sa = JSON.stringify(a), sb = JSON.stringify(b);
+    if (sa !== sb) throw new Error(`기대 ${sb}\n실제 ${sa}`);
+  }
+</script>
+<script src="lotto.test.js"></script>
+<script>
+  let passed = 0;
+  const list = document.getElementById("results");
+  for (const { name, fn } of cases) {
+    const li = document.createElement("li");
+    try { fn(); passed++; li.className = "pass"; li.textContent = "PASS  " + name; }
+    catch (e) { li.className = "fail"; li.textContent = "FAIL  " + name + "  — " + e.message; }
+    list.appendChild(li);
+  }
+  const verdict = passed === cases.length ? "ALL PASS" : "FAILED";
+  document.getElementById("summary").textContent = `${verdict} ${passed}/${cases.length}`;
+  document.title = `${verdict} ${passed}/${cases.length}`;
+</script>

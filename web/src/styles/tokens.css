@@ -1,0 +1,28 @@
+/* 디자인 토큰 — 색·글꼴은 여기서만 정의하고 나머지 CSS는 변수로만 참조한다.
+   어두운 배경 + 형광 초록 단일 테마 (뷰어 테마와 무관하게 고정) */
+:root {
+  color-scheme: dark;
+  --bg: #070B09;
+  --surface: #0E1512;
+  --surface-2: #131D18;
+  --ink: #E4F2EA;
+  --muted: #86A193;
+  --line: #1F2E27;
+  --accent: #39FF88;
+  --accent-ink: #04140B;
+  --glow: 0 0 18px rgba(57, 255, 136, .45), 0 0 2px rgba(57, 255, 136, .9);
+  --good: #39FF88;
+  --warn: #FFB547;
+  --shadow: 0 1px 0 rgba(57, 255, 136, .04) inset, 0 8px 24px rgba(0, 0, 0, .45);
+
+  /* 동행복권 공 색상 (번호 구간별) */
+  --ball-1: #F2B600;
+  --ball-2: #3FA9E0;
+  --ball-3: #F05A5A;
+  --ball-4: #9A9A9A;
+  --ball-5: #8CBF26;
+
+  --font-display: "Black Han Sans", "IBM Plex Sans KR", "Malgun Gothic", sans-serif;
+  --font-body: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}

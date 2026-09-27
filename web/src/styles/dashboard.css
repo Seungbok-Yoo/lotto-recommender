@@ -1,0 +1,59 @@
+/* 통계 대시보드 (Dashboard, DistributionChart, RankList 컴포넌트) */
+.dash { display: grid; gap: 16px; }
+.dash-head { display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; }
+.dash-head h2 { font-family: var(--font-display); font-weight: 400; font-size: 26px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 13px; padding: 7px 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.tile { padding: 16px 18px; display: grid; gap: 4px; }
+.tile .v { font-size: 26px; font-weight: 600; line-height: 1.2; }
+.tile .s { font-size: 12.5px; color: var(--muted); }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; width: max-content; }
+.pill.good { color: var(--good); }
+.pill.warn { color: var(--warn); }
+
+.card { padding: 20px 22px; display: grid; gap: 14px; }
+.card h3 { font-size: 16px; }
+.card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.readout { font-size: 13px; color: var(--muted); }
+.readout b { color: var(--ink); }
+
+.chart-scroll { overflow-x: auto; }
+.chart-scroll svg { display: block; width: 100%; min-width: 680px; height: auto; }
+.axis { fill: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.axis-n { fill: var(--muted); font-family: var(--font-mono); font-size: 10.5px; }
+.axis-n.on { fill: var(--ink); font-weight: 600; }
+.grid-line { stroke: var(--line); stroke-width: 1; }
+.exp-line { stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 5 4; opacity: .85; }
+.exp-label { fill: var(--accent); font-size: 11px; font-family: var(--font-body); }
+.val-label { fill: var(--accent); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); display: inline-block; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.rank { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.rank li { display: grid; grid-template-columns: 30px 1fr 52px; align-items: center; gap: 10px; font-size: 13px; }
+.rank .cnt { text-align: right; }
+
+.draws { display: grid; gap: 0; }
+.draw { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 12px; padding-block: 9px; border-top: 1px solid var(--line); }
+.draw:first-child { border-top: 0; }
+.draw .r { font-size: 13px; font-weight: 600; }
+.draw .balls { gap: 6px; align-items: center; }
+
+.groups { display: grid; gap: 10px; }
+.group { display: grid; grid-template-columns: 70px 1fr 110px; gap: 10px; align-items: center; font-size: 13px; }
+.group .cnt { text-align: right; color: var(--muted); }
+.note { font-size: 12.5px; color: var(--muted); margin: 0; max-width: 70ch; }
+
+@media (max-width: 860px) {
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+  .two { grid-template-columns: 1fr; }
+}
+@media (max-width: 440px) {
+  .tile .v { font-size: 22px; }
+  .group { grid-template-columns: 56px 1fr 90px; }
+}
