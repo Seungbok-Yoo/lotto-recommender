@@ -262,11 +262,11 @@ def build_weights(draws: list[Draw], mode: str) -> dict[int, float]:
 # 조합 생성
 # --------------------------------------------------------------------------
 
-def weighted_sample(weights: dict[int, float], rng: random.Random) -> list[int]:
-    """복원 없이 가중 추출."""
+def weighted_sample(weights: dict[int, float], rng: random.Random, k: int = PICK) -> list[int]:
+    """복원 없이 가중 추출 (k개)."""
     pool = dict(weights)
     picked = []
-    for _ in range(PICK):
+    for _ in range(k):
         total = sum(pool.values())
         r = rng.uniform(0, total)
         upto = 0.0
@@ -309,8 +309,20 @@ def recommend(
     count: int,
     past: set[tuple[int, ...]],
     rng: random.Random,
+    fixed: tuple[int, ...] = (),
+    use_filter: bool = True,
 ) -> list[list[int]]:
-    """필터를 통과하고 서로 겹치지 않으며 과거 1등과 동일하지 않은 조합들."""
+    """필터를 통과하고 서로 겹치지 않으며 과거 1등과 동일하지 않은 조합들.
+
+    fixed: 모든 게임에 반드시 넣을 번호 (나머지 6-len(fixed)개만 가중 추출).
+    제외수는 호출 전에 weights 에서 빼서 넘긴다.
+    """
+    pool = {n: w for n, w in weights.items() if n not in fixed}
+    k = PICK - len(fixed)
+
+    def draw() -> list[int]:
+        return sorted([*fixed, *weighted_sample(pool, rng, k)])
+
     games: list[list[int]] = []
     seen: set[tuple[int, ...]] = set()
     attempts = 0
@@ -318,18 +330,20 @@ def recommend(
 
     while len(games) < count and attempts < max_attempts:
         attempts += 1
-        nums = weighted_sample(weights, rng)
+        nums = draw()
         key = tuple(nums)
         if key in seen or key in past:
             continue
-        if not passes_filters(nums):
+        if use_filter and not passes_filters(nums):
             continue
         seen.add(key)
         games.append(nums)
 
-    # 필터가 너무 빡빡해 못 채웠다면 필터 없이 보충
-    while len(games) < count:
-        nums = weighted_sample(weights, rng)
+    # 필터가 너무 빡빡해 못 채웠다면 필터 없이 보충 (가능한 조합 수보다 많이 요청하면 있는 만큼만)
+    attempts = 0
+    while len(games) < count and attempts < max_attempts:
+        attempts += 1
+        nums = draw()
         key = tuple(nums)
         if key not in seen:
             seen.add(key)

@@ -201,6 +201,7 @@ CI: 모든 push·PR 에서 `deploy.yml` 이 Ubuntu + headless Chrome 으로 `--t
 | 2026-09-27 | 유지보수 컨텍스트 문서 | 이 `AGENTS.md` / `CLAUDE.md` 작성 | — |
 | 2026-09-27 | GitHub 에 직접 연결 | Git·GitHub CLI 설치, `.gitignore`, 루트 `AGENTS.md`/`CLAUDE.md`/`README.md`, `build.py` Linux 브라우저 탐색·`index.html` 출력, `deploy.yml`·`update-data.yml` 작성, public 저장소 생성·push, Pages 활성화 (저장소 공개 여부·이름은 사람이 결정, GitHub 로그인은 사람이 수행) | CI 첫 실행 성공(테스트·빌드·배포), Pages 주소 HTTP 200 + 1243회 데이터 포함 확인 |
 | 2026-09-27 | (AI 발견) 갱신 실패가 조용히 무시되는 문제 | `lottery.py --update` 실패 시 종료 코드 1 — PR #1 | 로컬 종료 코드 0, PR 브랜치에서 `update-data.yml` 실행 성공 → GitHub 서버에서 API 접속 가능 확인 |
+| 2026-09-28 | 프로그램에 AI Agent 가 개입하도록 — MCP 서버화 | `mcp_server/lotto_mcp.py` (도구 6개: 최신/회차 조회, 통계, 추천(고정수·제외수), 내 번호 분석, 이력 갱신), `lottery.recommend` 에 `fixed`·`use_filter` 추가 및 보충 루프 무한 반복 방지, `.mcp.json`, CI 에 MCP 테스트 추가 | 단위 9개 + MCP stdio 프로토콜 통합 테스트 1개 통과, 기존 CLI 출력 확인. Claude Desktop 실연결은 미확인 |
 
 **AI 가 판단으로 정한 것 (사람이 명시하지 않음 — 바꿔도 되는 부분):**
 글꼴(Black Han Sans / IBM Plex Sans KR / IBM Plex Mono), 레이아웃, 게임 수 상한 10, 대시보드 구성

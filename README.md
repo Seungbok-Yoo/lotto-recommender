@@ -14,6 +14,9 @@ python lottery.py --update         # 최신 회차까지 이력 갱신
 
 웹 페이지: `python web/build.py` 후 `web/dist/index.html` 을 브라우저로 연다. main 브랜치는 GitHub Pages 로 자동 배포된다.
 
+AI 에이전트 연동: [mcp_server/](mcp_server/README.md) 의 MCP 서버를 Claude Code·Claude Desktop 에 연결하면,
+대화로 "7번 넣고 핫넘버로 5게임 추천해줘", "이 번호 분석해줘" 처럼 요청할 수 있다.
+
 ## 문서
 
 - [web/README.md](web/README.md) — 웹 빌드·구조 요약
