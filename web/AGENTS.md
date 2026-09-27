@@ -15,8 +15,9 @@
 | 스택 | React 18.3.1 (UMD, CDN) + Babel standalone 7.24.7 (브라우저에서 JSX 변환) + 순수 CSS |
 | 빌드 | `python web/build.py` → `web/dist/lotto_app.html` 한 파일 (데이터 내장, 약 67KB) |
 | 테스트 | `python web/build.py --test` → Edge 헤드리스로 `tests/runner.html` 실행 |
-| 저장소 | GitHub `lotto-recommender` (public). CI: `.github/workflows/deploy.yml` |
-| 배포 | GitHub Pages (main push 시 자동) + claude.ai Artifact 사본(비공개): https://claude.ai/artifact/Kecv9kyucpc7s5GXuir6rt |
+| 저장소 | https://github.com/Seungbok-Yoo/lotto-recommender (public). CI: `.github/workflows/deploy.yml` |
+| 배포 | GitHub Pages https://seungbok-yoo.github.io/lotto-recommender/ (main push 시 자동) + claude.ai Artifact 사본(비공개): https://claude.ai/artifact/Kecv9kyucpc7s5GXuir6rt |
+| 데이터 갱신 | `update-data.yml` 매주 일요일 09:00 KST. GitHub 서버에서도 API 접속 확인됨 (2026-09-27) |
 | UI 언어 | 한국어 |
 
 ### 환경 제약 (설계를 결정한 조건)
@@ -198,7 +199,8 @@ CI: 모든 push·PR 에서 `deploy.yml` 이 Ubuntu + headless Chrome 으로 `--t
 | 2026-09-27 | 장단점 평가 | 자기 산출물 비판적 평가 | — |
 | 2026-09-27 | 구조별로 분리해 유지보수 쉽게 | `web/` 구조 설계, 파일 분리, `lib/` 순수 함수화(`stats.js` 신설, `rng` 주입), `build.py`, 테스트 16개, README | 단위 테스트 16/16 통과, Edge 헤드리스 렌더로 전 섹션 표시 확인 |
 | 2026-09-27 | 유지보수 컨텍스트 문서 | 이 `AGENTS.md` / `CLAUDE.md` 작성 | — |
-| 2026-09-27 | GitHub 에 직접 연결 | Git·GitHub CLI 설치, `.gitignore`, 루트 `AGENTS.md`/`CLAUDE.md`/`README.md`, `build.py` Linux 브라우저 탐색·`index.html` 출력, `deploy.yml`·`update-data.yml` 작성, public 저장소 생성·push (저장소 공개 여부·이름은 사람이 결정) | 로컬 테스트·빌드 재실행. CI 첫 실행 결과는 Actions 탭에서 확인 |
+| 2026-09-27 | GitHub 에 직접 연결 | Git·GitHub CLI 설치, `.gitignore`, 루트 `AGENTS.md`/`CLAUDE.md`/`README.md`, `build.py` Linux 브라우저 탐색·`index.html` 출력, `deploy.yml`·`update-data.yml` 작성, public 저장소 생성·push, Pages 활성화 (저장소 공개 여부·이름은 사람이 결정, GitHub 로그인은 사람이 수행) | CI 첫 실행 성공(테스트·빌드·배포), Pages 주소 HTTP 200 + 1243회 데이터 포함 확인 |
+| 2026-09-27 | (AI 발견) 갱신 실패가 조용히 무시되는 문제 | `lottery.py --update` 실패 시 종료 코드 1 — PR #1 | 로컬 종료 코드 0, PR 브랜치에서 `update-data.yml` 실행 성공 → GitHub 서버에서 API 접속 가능 확인 |
 
 **AI 가 판단으로 정한 것 (사람이 명시하지 않음 — 바꿔도 되는 부분):**
 글꼴(Black Han Sans / IBM Plex Sans KR / IBM Plex Mono), 레이아웃, 게임 수 상한 10, 대시보드 구성
