@@ -432,6 +432,10 @@ def main() -> int:
     draws = ensure_history()
     if args.update:
         draws = update_history(draws)
+        # 기존 이력이 있으면 아래의 "이력 없음" 안내가 뜨지 않으므로 여기서 실패를 알린다 (CI 가 감지하도록 종료 코드 1)
+        if LAST_ERROR:
+            print(f"이력 갱신 실패: {LAST_ERROR}", file=sys.stderr)
+            return 1
 
     if not draws:
         print("당첨 이력을 가져오지 못했습니다. 균등 확률로 추천합니다.", file=sys.stderr)
