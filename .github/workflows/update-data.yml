@@ -1,6 +1,7 @@
 # 매주 일요일 09:00 KST (토요일 추첨 다음 날) 에 당첨 이력을 갱신해 커밋한다.
 # 커밋은 GITHUB_TOKEN 으로 하므로 deploy.yml 이 자동으로 이어지지 않는다 → 마지막에 직접 호출.
-# 주의: GitHub 서버는 해외 IP 다. 동행복권이 막으면 실패하므로 먼저 수동 실행(Run workflow)으로 확인할 것.
+# GitHub 서버(해외 IP)에서도 동행복권 API 접속됨 (2026-09-27 확인).
+# 접속 실패·API 변경 시 lottery.py 가 종료 코드 1 을 내므로 이 워크플로가 실패로 표시되고 알림 메일이 간다.
 name: Update lotto data
 
 on:
